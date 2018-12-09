@@ -1,0 +1,34 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package aymantarneeb;
+
+
+import java.util.ArrayList;
+import javax.swing.*;
+
+/**
+ *
+ * @author home
+ */
+public class PlayingCard {
+   // public static enum ShapeTypes{Speed,Diamon,Clubs,RedHeart};
+    public int Value;
+    private int NUM=0;
+    public static String[]typeofcards=new String [] {"diamonds","clubs","hearts","spades"};
+   //  ArrayList<String> Shapetype=new ArrayList<String>(4);
+    public String type;   
+    //public ShapeTypes Shape;
+    public String CardName;
+    public String ImageName;
+    public JLabel Holder;
+     public int getNUM() {
+        return NUM;
+    }
+
+    public void setNUM(int NUM) {
+        this.NUM = NUM;
+    }
+}

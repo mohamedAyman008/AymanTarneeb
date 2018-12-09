@@ -1,0 +1,170 @@
+package aymantarneeb;
+
+
+import static aymantarneeb.PlayingCard.typeofcards;
+import java.awt.event.*;
+import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import javafx.collections.FXCollections;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+/**
+ *
+ * @author home
+ */
+public class TarneebGame extends JFrame implements MouseMotionListener {
+    
+    ArrayList <PlayingCard> Cards=new ArrayList<PlayingCard>();
+    String DirectoryPath="C:\\Users\\home\\Desktop\\Cards";
+    //ArrayList<JLabel> ArrayOfLabel=new ArrayList<JLabel>();
+    JLabel XCor=new JLabel("XCor");
+    JLabel YCor=new JLabel("YCor");
+    JFileChooser fc=new JFileChooser();
+    Random rand=new Random();
+    public TarneebGame()
+    {
+        setTitle("Tarneeb Ver 1.0");
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        
+        setSize(env.getMaximumWindowBounds().width, env.getMaximumWindowBounds().height);
+       
+        //setLayout(null);
+        //XCor.setBounds(10,840,120,30);
+        //YCor.setBounds(130,840,120,30);
+        //add(XCor);
+        //add(YCor);
+    
+        setLayout(new FlowLayout());
+        int k=0;
+        int x=0;
+        int y=10;
+        int elementsinrow=0;
+         
+        for(int l=0;l<4;l++){
+            
+        for (int i=2;i<15;i++)
+        {
+          
+            
+        PlayingCard p=new PlayingCard();
+        p.setNUM(i);
+        p.type=typeofcards[l];        
+        p.ImageName=DirectoryPath+"\\"+i+"_of_"+typeofcards[l]+".png";
+        
+        Cards.add(p);
+        
+           
+            JLabel j=new JLabel();
+            j.setIcon(new ImageIcon(new ImageIcon(Cards.get(k).ImageName).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT)));
+            k++;
+            add(j);
+               
+             //Cards.get(rand.nextInt(i));
+            j.addMouseMotionListener(this);
+            j.setBounds(x,y, 100, 150);
+            p.Holder=j;
+            x+=100;             
+            add(p.Holder);
+           /* for(int a=0;a<4;a++){
+                int index=rand.nextInt(52);
+                System.out.println(index);
+            }*/
+        
+            elementsinrow++;
+            
+            if (elementsinrow>12)
+            {
+                x=0;
+                y+=150;
+                elementsinrow=0;
+            
+            }
+        }
+        
+        addMouseMotionListener(this);
+       
+    }
+     /*   ImageIcon deckOfCards [] = new ImageIcon [52];
+    for (int m = 0; m < 52; m++) {
+            int r = m + (int) (Math.random() * (52-m));
+            ImageIcon t = deckOfCards[r];
+            deckOfCards[r] = deckOfCards[m];
+            deckOfCards[m] = t;
+}*/
+}
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        XCor.setText(""+e.getX());
+        YCor.setText(""+e.getXOnScreen());
+        for (PlayingCard p:Cards)
+        {
+        if (p.Holder.equals(e.getSource()))
+        {
+            //JOptionPane.showMessageDialog(null, "Label 0");
+           // int i=Cards.indexOf(e.getSource());
+            p.Holder.setBounds(e.getXOnScreen()-10,e.getYOnScreen()-20, 150, 220);
+           // XCor.setText(""+p.Value);
+            
+        }
+        }
+        
+      
+        //System.out.println("E"+e.getSource().toString());
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }  
+
+    public void paint(Graphics g){
+    super.paint(g);
+    try{
+        BufferedImage img=ImageIO.read(new File("C:\\Users\\home\\Desktop\\images\\cards.jpg"));
+        g.drawImage(img, 0,0, 1500,870,null);
+    }
+    catch(Exception e){
+        System.out.println(e);
+    }
+}
+}
+/* public void shuffleList(PlayingCard p){
+        Random R=new Random();
+        for(int i=0;i<52;i++){
+            int index1=R.nextInt(52);
+            int index2=R.nextInt(52);
+            
+            Integer temp1=p.(index1);
+            Integer temp2=p.get(index2);
+            p.seT(index1, temp2);
+            p.set(index2, temp1);
+            
+        }
+    }
+    
+}*/
+
+
+
